@@ -1,0 +1,27 @@
+{
+  "name": "fastify_typescript_template",
+  "version": "1.0.0",
+  "description": "Fastify is a web framework highly focused on providing the best developer experience with the least overhead and a powerful plugin architecture. It is inspired by Hapi and Express and as far as we know, it is one of the fastest web frameworks in town, With TypeScript that adds static typing with optional type annotations to JavaScript.",
+  "main": "index.js",
+  "scripts": {
+    "build": " rimraf ./build && tsc",
+    "dev": "nodemon",
+    "start": "npm run build && node ./build/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Vishal Talukar",
+  "license": "ISC",
+  "dependencies": {
+    "@fastify/cors": "^8.4.2",
+    "dotenv": "^16.3.1",
+    "fastify": "^4.24.3",
+    "pusher": "^5.2.0",
+    "typescript": "^5.2.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.8.10",
+    "nodemon": "^3.0.1",
+    "rimraf": "^5.0.5",
+    "ts-node": "^10.9.1"
+  }
+}
