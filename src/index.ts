@@ -30,13 +30,15 @@ server.post('/join', async (req: FastifyRequest, reply: FastifyReply) => {
 
 
         // Notify other users in the room that a new user has joined
-        await pusher.trigger(`chat-${data.room}`, 'user-joined', data);
+        await pusher.trigger(`chat-${data.room}`, 'user-joined', data).then(() => {
 
-        console.log(JSON.stringify(data))
-        reply.send({ message: `Joined Room ${data.room}` }).status(200);
+            reply.send({ status: 200, message: `Joined Room ${data}` }).status(200);
+        });
+
+        // console.log(JSON.stringify(data))
     } catch (error) {
-        console.error('Error joining room:', error);
-        reply.status(500).send({ message: 'Error joining room' });
+        // console.error('Error joining room:', error);
+        reply.status(400).send({ status: 400, message: 'Error joining room' });
     }
 });
 
@@ -49,14 +51,16 @@ server.post('/messages/:room', async (req: FastifyRequest, reply: FastifyReply) 
     try {
 
         // Broadcast the message to all users in the room
-        await pusher.trigger(`chat-${data.room}`, 'message', data);
+        await pusher.trigger(`chat-${data.room}`, 'message', data).then(() => {
+            reply.send({ status: 200, message: 'Message sent' }).status(200);
+        });
         console.log(JSON.stringify(data))
-        reply.send({ status: 'Message sent' }).status(200);
+
 
 
     } catch (error) {
         console.error('Error sending message:', error);
-        reply.status(500).send({ status: 'Error sending message' });
+        reply.status(400).send({ status: 400, message: 'Error sending message' });
 
     }
 });
